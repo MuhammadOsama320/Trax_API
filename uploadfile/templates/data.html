@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Data</title>
+</head>
+
+
+<h4 style="text-align: center;">Customer Data</h4>
+<a href="" id="status_update"></a>
+<label for="status">Select a Status:</label>
+<select name="status" id="status" onchange="getSelectValue()">
+    <option value="Shipment - All" {% if status == 'Shipment - All' %}selected{% endif %}>Shipment -All</option>
+    <option value="Shipment - Delivered" {% if status == 'Shipment - Delivered' %}selected{% endif %}>Shipment -
+        Delivered
+    </option>
+    <option value="Shipment - Pending" {% if status == 'Shipment - Pending' %}selected{% endif %}>Shipment - Pending
+    </option>
+    <option value="Shipment - Complete" {% if status == 'Shipment - Complete' %}selected{% endif %}>Shipment -
+        Completed
+    </option>
+    <option value="Shipment - Cancel" {% if status == 'Shipment - Cancel' %}selected{% endif %}>Shipment - Cancelled
+    </option>
+    <option value="Shipment - Return" {% if status == 'Shipment - Return' %}selected{% endif %}>Shipment - Returned
+    </option>
+</select>
+<label for="Date">Start Date:</label>
+<input type="date" id="start_date" name="start_date" value="{{ start_date }}" onchange="getSelectValue()">
+<label for="Date">End Date:</label>
+<input type="date" id="end_date" name="end_date" value="{{ end_date }}" onchange="getSelectValue()">
+<div class="pagination">
+    <span class="step-links">
+
+        {% if customers.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ customers.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ customers.number }} of {{ customers.paginator.num_pages }}.
+        </span>
+
+        {% if customers.has_next %}
+            <a href="?page={{ customers.next_page_number }}">Next</a>
+            <a href="?page={{ customers.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+<table class="table table-hover" scope="col" style="border-style:solid; border-width:1px; border-color: #000">
+    <thead scope="col" style="border-style:solid; border-width:1px; border-color: #000">
+    <tr scope="col" style="border-style:solid; border-width:1px; border-color: #000">
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Pickup Address ID</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Show Information on Air
+            Waybill
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Consignee City Name</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Consignee Name</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Consignee Address</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Consignee Phone Number 1
+            (03000000000)
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Consignee Phone Number 2
+            (03000000000)
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Consignee Email Address
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Self Collection</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Order ID</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Order Date (YYYY-MM-DD)
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Item Product Type ID</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Item Description</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Item Quantity</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Item Insurance</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Product Value</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Special Instructions</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Estimated Weight (kg)</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Mode of Shipment ID</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Same Day Timing ID</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Collection Amount</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Mode of Payment ID</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Charges Mode ID</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Pieces</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Shipper Reference Number
+            1
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Shipper Reference Number
+            2
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Shipper Reference Number
+            3
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Shipper Reference Number
+            4
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Shipper Reference Number
+            5
+        </th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Status</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Tracking Number</th>
+        <th scope="col" style="border-style:solid; border-width:1px; border-color: #000">Action</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for cu in customers %}
+        <tr>
+            <td>{{ cu.pickup_address_id }}</td>
+            <td>{{ cu.show_information_on_air_waybill }}</td>
+            <td>{{ cu.consignee_city_name }}</td>
+            <td>{{ cu.consignee_name }}</td>
+            <td>{{ cu.consignee_address }}</td>
+            <td>{{ cu.consignee_phone_number_1 }}</td>
+            <td>{{ cu.consignee_phone_number_2 }}</td>
+            <td>{{ cu.consignee_email_address }}</td>
+            <td>{{ cu.self_collection }}</td>
+            <td>{{ cu.order_id }}</td>
+            <td>{{ cu.order_date }}</td>
+            <td>{{ cu.item_product_type_id }}</td>
+            <td>{{ cu.item_description }}</td>
+            <td>{{ cu.item_quantity }}</td>
+            <td>{{ cu.item_insurance }}</td>
+            <td>{{ cu.product_value }}</td>
+            <td>{{ cu.special_instructions }}</td>
+            <td>{{ cu.estimated_weight }}</td>
+            <td>{{ cu.mode_of_shipment_id }}</td>
+            <td>{{ cu.same_day_timing_id }}</td>
+            <td>{{ cu.collection_amount }}</td>
+            <td>{{ cu.mode_of_payment_id }}</td>
+            <td>{{ cu.charges_mode_id }}</td>
+            <td>{{ cu.pieces }}</td>
+            <td>{{ cu.shipper_reference_number_1 }}</td>
+            <td>{{ cu.shipper_reference_number_2 }}</td>
+            <td>{{ cu.shipper_reference_number_3 }}</td>
+            <td>{{ cu.shipper_reference_number_4 }}</td>
+            <td>{{ cu.shipper_reference_number_5 }}</td>
+            <td>{{ cu.status }}</td>
+            <td>{{ cu.tracking_number }}</td>
+            <td><a href="{% url 'customer_edit' cu.id %}">Edit</a></td>
+
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.getElementById("end_date").min = document.getElementById("start_date").value;
+    function getSelectValue() {
+
+        var selected_status = document.getElementById("status").value;
+        var selected_start_date = document.getElementById("start_date").value;
+        var selected_end_date = document.getElementById("end_date").value;
+        document.getElementById("end_date").min = document.getElementById("start_date").value;
+
+        var url = '{% url "data" %}?status=' + selected_status + '&start_date=' + selected_start_date + '&end_date=' + selected_end_date;
+
+
+        document.getElementById("status_update").setAttribute("href", url)
+        document.getElementById("status_update").click()
+
+
+    }
+
+
+</script>
+</body>
+</html>
